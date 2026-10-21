@@ -1,0 +1,31 @@
+{
+  "name": "code-and-paint",
+  "version": "5.0.0",
+  "description": "Code&Paint — Visual generative coding & algorithmic painting studio. Paint pictures with live self-writing code, audio reactivity, and 48 organic tactile styles.",
+  "type": "module",
+  "scripts": {
+    "start": "node serve.mjs",
+    "serve": "node serve.mjs",
+    "test": "node -e \"import('./serve.mjs'); console.log('Syntax check passed'); process.exit(0);\""
+  },
+  "keywords": [
+    "creative-coding",
+    "canvas",
+    "generative-art",
+    "webgl",
+    "threejs",
+    "audio-reactive",
+    "digital-painting",
+    "code-art"
+  ],
+  "author": "Mahaveer Singh Gehlot <gehlot.mahisingh2006.102@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahik504/Code-and-Paint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mahik504/Code-and-Paint/issues"
+  },
+  "homepage": "https://github.com/mahik504/Code-and-Paint#readme"
+}

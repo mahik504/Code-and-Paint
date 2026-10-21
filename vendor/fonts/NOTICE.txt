@@ -1,0 +1,5 @@
+Fonts for Code&Paint's text bar (latin subsets, woff2, from Google Fonts):
+  Archivo Black, Bebas Neue, Playfair Display (700), Caveat (600), Space Mono (700), Abril Fatface,
+  Rubik Mono One, Pacifico — SIL Open Font License 1.1: https://openfontlicense.org
+  Permanent Marker, Rock Salt — Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0
+Each font's copyright stays with its designers (see https://fonts.google.com for the names and the full licences).
