@@ -22,12 +22,14 @@
 <style>
   /* light / dark: the whole console; the stage itself stays dark */
   body[data-ui="light"] { --case: #eceee9; --panel: #f7f8f5; --line: #d8dbd4; --key: #ffffff; --keyon: #e6e9e2; --keyline: #cfd3cb; --keyshadow: #b8bcb4; --press: rgba(0,0,0,.14); --text: #16181b; --muted: #7e828a; --ledoff: #c8ccc4; --knobtop: #ffffff; --track: #ced2ca; --well: #e2e6de; --ink: #16181b; --inktext: #f7f8f5; }
-  body[data-ui="dark"] { --case: #0a0b0e; --panel: #111317; --line: #1c1f26; --key: #17191f; --keyon: #121418; --keyline: #262b35; --keyshadow: #050608; --press: rgba(0,0,0,.65); --text: #f0f2f5; --muted: #6f7480; --ledoff: #2c303a; --knobtop: #222630; --track: #232731; --well: #0c0e12; --ink: #f0f2f5; --inktext: #0a0b0e; }
+  body[data-ui="dark"] { --case: #08090c; --panel: #0f1116; --line: #1a1d24; --key: #15181f; --keyon: #0f1115; --keyline: #232832; --keyshadow: #040507; --press: rgba(0,0,0,.7); --text: #f2f4f7; --muted: #717784; --ledoff: #232731; --knobtop: #1c2029; --track: #1f232c; --well: #0a0b0e; --ink: #f2f4f7; --inktext: #08090c; }
   body { --accent: #00f59b; --accent2: #9d4edd; --accent3: #00d4ff; --dim: #6f7480; --fg: var(--text); }
-  .key, .mini, .seg button { transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s ease; }
+  .key, .mini, .seg button { transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.12s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.16s ease; }
+  .key.ico svg { transition: transform 0.15s ease, color 0.15s ease; }
+  .key.ico:hover svg { transform: scale(1.12); color: var(--accent); }
   .brand { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: .08em; background: linear-gradient(135deg, #00f59b 0%, #00d4ff 50%, #9d4edd 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
   .panel { box-shadow: 0 4px 20px rgba(0,0,0,0.18); backdrop-filter: blur(12px); }
-  .key:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 40%, var(--keyline)); }
+  .key:hover:not(:disabled) { border-color: color-mix(in srgb, var(--accent) 45%, var(--keyline)); box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
   body { background: var(--case); color: var(--text); font: 11px/1.4 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; overflow: hidden; }
@@ -315,7 +317,8 @@
   #phone .prow[hidden] { display: none; }
   #phone .prow { display: flex; align-items: center; gap: 8px; min-width: 0; }
   #phone .pkey { flex: none; height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--keyline); background: var(--key); color: var(--text); font: 600 12px 'IBM Plex Mono', monospace; display: inline-flex; align-items: center; justify-content: center; gap: 7px; box-shadow: 0 2px 0 var(--keyshadow); -webkit-tap-highlight-color: transparent; }
-  #phone .pkey:active { transform: translateY(1px); box-shadow: none; }
+  #phone .pkey { transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease; }
+  #phone .pkey:active { transform: scale(0.975) translateY(1px); box-shadow: none; }
   #phone .pgo { flex: 1; background: var(--accent); color: #0b0b0c; border-color: color-mix(in srgb, var(--accent) 80%, #000); box-shadow: 0 2px 0 color-mix(in srgb, var(--accent) 55%, #000); font-weight: 700; font-size: 13px; }
   #phone .pgo.off { opacity: .45; }
   #phone .prec { flex: 1; } #phone .prec .dot { width: 9px; height: 9px; border-radius: 50%; background: #e0e0dc; }
@@ -328,7 +331,8 @@
   #phone .pnote { margin: 0; text-align: center; font: 500 10.5px 'IBM Plex Mono', monospace; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #phone .pchips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding: 2px 0; }
   #phone .pchips::-webkit-scrollbar { display: none; }
-  #phone .pchips button { flex: none; height: 34px; padding: 0 12px; border-radius: 17px; border: 1px solid var(--keyline); background: var(--key); color: var(--muted); font: 500 12px 'IBM Plex Mono', monospace; }
+  #phone .pchips button { flex: none; height: 34px; padding: 0 12px; border-radius: 17px; border: 1px solid var(--keyline); background: var(--key); color: var(--muted); font: 500 12px 'IBM Plex Mono', monospace; transition: all 0.15s cubic-bezier(0.2, 0, 0, 1); }
+  #phone .pchips button:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--keyline)); }
   #phone .pchips button.on { color: var(--text); border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
   #phone .pseg { flex: none; display: inline-flex; border: 1px solid var(--keyline); border-radius: 10px; padding: 2px; background: var(--well); }
   #phone .pseg button { height: 34px; padding: 0 11px; border: 0; border-radius: 8px; background: transparent; color: var(--muted); font: 500 12px 'IBM Plex Mono', monospace; }
@@ -2925,11 +2929,12 @@ function canvasAsShown(longSide) {
 const download = (blob, name) => { tagFile(blob, name).then(b => { const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 60000); }); };
 // ── the settings travel with what you make (like ComfyUI's workflows): every PNG, MP4, SVG and code page saved carries
 // the settings it was made with, and dropping one back onto the page brings them back (the picture stays as it is) ──
-//   PNG: a tEXt chunk 'code-painter' · MP4: a top-level 'uuid' box at the end (players skip it) · SVG: <metadata> ·
-//   HTML: a <script type="application/json" id="code-painter-settings">
-const META_UUID = [0x63, 0x6f, 0x64, 0x65, 0x2d, 0x70, 0x61, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x2d, 0x76, 0x31, 0x00];    // "code-painter-v1\0"
+//   PNG: a tEXt chunk 'code-and-paint' · MP4: a top-level 'uuid' box at the end (players skip it) · SVG: <metadata> ·
+//   HTML: a <script type="application/json" id="code-and-paint-settings">
+const META_UUID_V5 = [0x63, 0x6f, 0x64, 0x65, 0x2d, 0x61, 0x6e, 0x64, 0x2d, 0x70, 0x61, 0x69, 0x6e, 0x74, 0x00, 0x00];    // "code-and-paint\0\0"
+const META_UUID_LEGACY = [0x63, 0x6f, 0x64, 0x65, 0x2d, 0x70, 0x61, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x2d, 0x76, 0x31, 0x00];    // legacy "code-painter-v1\0"
 function settingsMeta() {
-  return { app: 'code-painter', version: APP_VERSION, made: new Date().toISOString(), picture: S.name || null, song: audioActive() ? AU.name : null, settings: presetGet() };
+  return { app: 'code-and-paint', version: APP_VERSION, made: new Date().toISOString(), picture: S.name || null, song: audioActive() ? AU.name : null, settings: presetGet() };
 }
 const asciiJSON = o => JSON.stringify(o).replace(/[\u007f-￿]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 async function tagFile(blob, name) {
@@ -2940,30 +2945,30 @@ async function tagFile(blob, name) {
     if (ext === 'png') {
       const b = new Uint8Array(await blob.arrayBuffer());
       if (b.length < 33 || b[12] !== 0x49 || b[13] !== 0x48) return blob;          // (not a PNG with IHDR first)
-      const body = new TextEncoder().encode('tEXtcode-painter\0' + json), n = body.length - 4, ch = new Uint8Array(body.length + 8), dv = new DataView(ch.buffer);
+      const body = new TextEncoder().encode('tEXtcode-and-paint\0' + json), n = body.length - 4, ch = new Uint8Array(body.length + 8), dv = new DataView(ch.buffer);
       dv.setUint32(0, n); ch.set(body, 4); dv.setUint32(4 + body.length, crc32(body));
       return new Blob([b.subarray(0, 33), ch, b.subarray(33)], { type: 'image/png' });
     }
     if (ext === 'mp4') {
       const body = new TextEncoder().encode(json), box = new Uint8Array(24 + body.length), dv = new DataView(box.buffer);
-      dv.setUint32(0, box.length); box.set([0x75, 0x75, 0x69, 0x64], 4); box.set(META_UUID, 8); box.set(body, 24);
+      dv.setUint32(0, box.length); box.set([0x75, 0x75, 0x69, 0x64], 4); box.set(META_UUID_V5, 8); box.set(body, 24);
       return new Blob([blob, box], { type: blob.type || 'video/mp4' });
     }
     const t = await blob.text(), esc = json.replace(/</g, '\\u003c');
-    if (ext === 'svg') return new Blob([t.replace(/(<svg\b[^>]*>)/, `$1<metadata id="code-painter">${esc}</metadata>`)], { type: 'image/svg+xml' });
-    const tag = `<script type="application/json" id="code-painter-settings">${esc}<\/script>`;
+    if (ext === 'svg') return new Blob([t.replace(/(<svg\b[^>]*>)/, `$1<metadata id="code-and-paint">${esc}</metadata>`)], { type: 'image/svg+xml' });
+    const tag = `<script type="application/json" id="code-and-paint-settings">${esc}<\/script>`;
     return new Blob([/<\/body>/.test(t) ? t.replace(/<\/body>(?![\s\S]*<\/body>)/, tag + '</body>') : t + '\n' + tag + '\n'], { type: 'text/html' });
   } catch (e) { return blob; }
 }
 // the settings a file carries (or null)
 async function readMeta(f) {
   try {
-    const name = (f.name || '').toLowerCase(), ok = o => o && o.app === 'code-painter' && o.settings ? o : null;
+    const name = (f.name || '').toLowerCase(), ok = o => o && (o.app === 'code-and-paint' || o.app === 'code-painter') && o.settings ? o : null;
     if (/\.png$/.test(name) || f.type === 'image/png') {
       const b = new Uint8Array(await f.slice(0, Math.min(f.size, 8 << 20)).arrayBuffer()), dv = new DataView(b.buffer);
       for (let i = 8; i + 8 <= b.length;) {
         const n = dv.getUint32(i), ty = String.fromCharCode(b[i + 4], b[i + 5], b[i + 6], b[i + 7]);
-        if (ty === 'tEXt') { const t = new TextDecoder('latin1').decode(b.subarray(i + 8, i + 8 + n)); if (t.startsWith('code-painter\0')) return ok(JSON.parse(t.slice(13))); }
+        if (ty === 'tEXt') { const t = new TextDecoder('latin1').decode(b.subarray(i + 8, i + 8 + n)); if (t.startsWith('code-and-paint\0')) return ok(JSON.parse(t.slice(15))); if (t.startsWith('code-painter\0')) return ok(JSON.parse(t.slice(13))); }
         if (ty === 'IDAT' || ty === 'IEND') break;
         i += 12 + n;
       }
@@ -2975,13 +2980,13 @@ async function readMeta(f) {
         const ty = String.fromCharCode(h.getUint8(4), h.getUint8(5), h.getUint8(6), h.getUint8(7));
         if (n === 1) n = Number(h.getBigUint64(8)); else if (n === 0) n = f.size - i;
         if (n < 8) break;
-        if (ty === 'uuid' && h.byteLength >= 24 && META_UUID.every((v, k) => h.getUint8(8 + k) === v)) return ok(JSON.parse(await f.slice(i + 24, i + n).text()));
+        if (ty === 'uuid' && h.byteLength >= 24 && (META_UUID_V5.every((v, k) => h.getUint8(8 + k) === v) || META_UUID_LEGACY.every((v, k) => h.getUint8(8 + k) === v))) return ok(JSON.parse(await f.slice(i + 24, i + n).text()));
         i += n;
       }
       return null;
     }
     if (/\.(svg|html?)$/.test(name)) {
-      const t = await f.text(), m = t.match(/<metadata id="code-painter">([\s\S]*?)<\/metadata>/) || t.match(/<script type="application\/json" id="code-painter-settings">([\s\S]*?)<\/script>/);
+      const t = await f.text(), m = t.match(/<metadata id="(?:code-and-paint|code-painter)">([\s\S]*?)<\/metadata>/) || t.match(/<script type="application\/json" id="(?:code-and-paint-settings|code-painter-settings)">([\s\S]*?)<\/script>/);
       return m ? ok(JSON.parse(m[1])) : null;
     }
   } catch (e) { /* not ours */ }
@@ -3212,7 +3217,7 @@ const recMode = () => $('recmode').value;       // offline (render, hq) | stage 
 // the record key: a dot and its word — the dot turns red while it records (or renders)
 const recKey = (on, word) => { const k = $('rec'); k.classList.toggle('on', on); k.innerHTML = `<i class="dot"></i>${word}`; };
 const recIdle = () => recKey(false, 'record');
-const recName = ext => `code-painter-${S.name.replace(/[^\w-]+/g, '_')}-${S.rec && S.rec.screen || S.recScreen ? 'full-interface' : document.body.dataset.layout + (DISPLAY === 'studio' ? '' : '-' + DISPLAY)}.${ext}`;
+const recName = ext => `code-and-paint-${S.name.replace(/[^\w-]+/g, '_')}-${S.rec && S.rec.screen || S.recScreen ? 'full-interface' : document.body.dataset.layout + (DISPLAY === 'studio' ? '' : '-' + DISPLAY)}.${ext}`;
 // (sound is recorded only while a song, a video's soundtrack or a live sound is driving the painting; otherwise the
 // video has no audio track at all)
 // the browser's own recorder (when the MP4 recorder can't run): MP4 wherever the browser can make one (Chrome, Edge,
@@ -3368,7 +3373,7 @@ function panes(now) {
     X.fillStyle = COL.dim; X.font = `600 30px ${MONO}`; X.textAlign = 'center';
     X.fillText('drop any image here', O.x + O.w / 2, O.y + O.h / 2 - 8);
     X.font = `18px ${MONO}`; X.fillText(PUBLIC ? 'or pick a demo, or type a word (examples…)' : 'or pick an example / a piece to replay', O.x + O.w / 2, O.y + O.h / 2 + 28);
-    X.fillStyle = COL.accent; X.fillText('the code-painted version appears here', Pn.x + Pn.w / 2, Pn.y + Pn.h / 2);
+    X.fillStyle = COL.accent; X.fillText('the Code&Paint canvas appears here', Pn.x + Pn.w / 2, Pn.y + Pn.h / 2);
     X.textAlign = 'left';
     return;
   }
@@ -8567,8 +8572,8 @@ for (const b of document.querySelectorAll('#presets [data-p]')) {
 }
 $('psave').onclick = () => {
   if (!Object.keys(PRESETS).length) { $('hint').textContent = 'No presets to save yet: store one first (store, then a letter).'; return; }
-  download(new Blob([JSON.stringify({ app: 'code-painter', presets: PRESETS }, null, 1)], { type: 'application/json' }), 'code-painter-presets.json');
-  $('hint').textContent = `Saved presets ${Object.keys(PRESETS).sort().join(' ')} to code-painter-presets.json.`;
+  download(new Blob([JSON.stringify({ app: 'code-and-paint', presets: PRESETS }, null, 1)], { type: 'application/json' }), 'code-and-paint-presets.json');
+  $('hint').textContent = `Saved presets ${Object.keys(PRESETS).sort().join(' ')} to code-and-paint-presets.json.`;
 };
 $('pload').onclick = () => $('pfile').click();
 // reset: every setting back to its default — the stored choices are cleared and the page starts again (presets A–D and

@@ -8,30 +8,32 @@
 
 **Code&Paint** is built upon the premise that algorithmic art creation should feel physical, luminous, and direct. Rather than presenting generic modern flat UI or disconnected dropdowns, Code&Paint emulates a precision hardware synthesizer console with tactile micro-switches, illuminated LEDs, weighted rotary knobs, and rich dark-field canvas projection.
 
-Every stroke drawn on the canvas is simultaneously synthesized as executable code right before the artist's eyes. The UI honors this mechanical elegance with high-contrast OLED dark themes, physical depression mechanics, and neon phosphor indicators.
+Every stroke drawn on the canvas is simultaneously synthesized as executable code right before the artist's eyes. The UI honors this mechanical elegance with high-contrast OLED dark themes, physical depression mechanics, spring transitions, and neon phosphor indicators.
 
 ---
 
 ## 2. Color Palette & Chromatic Science
 
 ### Dark Theme (Default Studio Console)
-- `--case`: `#0a0b0e` (Deep Obsidian Chassis)
-- `--panel`: `#111317` (Matte Carbon Surface)
-- `--line`: `#1c1f26` (Precision Milled Groove)
-- `--key`: `#17191f` (Machined Anodized Keycap)
-- `--keyon`: `#121418` (Depressed Switch Well)
-- `--keyline`: `#262b35` (Beveled Edge Highlight)
-- `--keyshadow`: `#050608` (Ambient Occlusion Drop)
-- `--text`: `#f0f2f5` (Bright Off-White Legend)
-- `--muted`: `#6e7482` (Subdued Engraved Label)
-- `--well`: `#0c0e12` (Recessed Bay)
+- `--case`: `#08090c` (Ultra-Deep Obsidian Chassis)
+- `--panel`: `#0f1116` (Matte Carbon Surface)
+- `--line`: `#1a1d24` (Precision Milled Groove)
+- `--key`: `#15181f` (Machined Anodized Keycap)
+- `--keyon`: `#0f1115` (Depressed Switch Well)
+- `--keyline`: `#232832` (Beveled Edge Highlight)
+- `--keyshadow`: `#040507` (Ambient Occlusion Drop)
+- `--text`: `#f2f4f7` (Bright Off-White Legend)
+- `--muted`: `#717784` (Subdued Engraved Label)
+- `--well`: `#0a0b0e` (Recessed Bay)
+- `--ink`: `#f2f4f7` (High-Contrast Legend)
+- `--inktext`: `#08090c` (Inverted Obsidian Text)
 
 ### Accents & Signal Indicators
 - `--accent`: `#00f59b` (Primary Cyber Emerald Mint — Active Run / Core Action)
 - `--accent2`: `#9d4edd` (Electric Ultraviolet — Audio Reactivity / Special Looks)
 - `--accent3`: `#00d4ff` (Neon Cyan — Vector Outlines / Shaders)
 - `--rec`: `#ff3b30` (Luminous Crimson — Recording Active Pulse)
-- `--ledoff`: `#2c303a` (Extinguished Phosphor Diode)
+- `--ledoff`: `#232731` (Extinguished Phosphor Diode)
 
 ### Light Theme (Architectural Workspace)
 - `--case`: `#eceee9` (Warm Industrial Porcelain)
@@ -47,7 +49,7 @@ Every stroke drawn on the canvas is simultaneously synthesized as executable cod
 
 | Role | Font Family | Weight | Size / Line-Height | Tracking | Case |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Brand Title** | Archivo, sans-serif | 800 (Heavy) | 15px / 1.0 | +0.08em | UPPERCASE |
+| **Brand Title** | Archivo, sans-serif | 800 (Heavy) | 15px / 1.0 | +0.10em | UPPERCASE |
 | **Section Labels** | IBM Plex Mono, monospace | 600 (Semi-Bold) | 9px / 1.0 | +0.20em | UPPERCASE |
 | **Keycaps / Buttons** | IBM Plex Mono, monospace | 500 (Medium) | 9px / 1.0 | +0.03em | lowercase |
 | **Status / Hints** | IBM Plex Mono, monospace | 400 (Regular) | 10px / 1.4 | 0 | Sentence |
@@ -60,25 +62,28 @@ Every stroke drawn on the canvas is simultaneously synthesized as executable cod
 ### 4.1 Pushbutton Physics
 Buttons are modeled as tactile switches with real physical feedback:
 ```css
-.key {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 9px;
-  border: 1px solid var(--keyline);
-  background: var(--key);
-  box-shadow: 0 2px 0 var(--keyshadow);
-  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.15s ease;
+.key, .mini, .seg button {
+  transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.12s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.16s ease;
 }
 
 .key:hover:not(:disabled) {
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--keyline));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--keyline));
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
 .key.on, .key:has(input:checked) {
   transform: translateY(1px);
   background: var(--keyon);
   box-shadow: 0 1px 0 var(--keyshadow), inset 0 1px 3px var(--press);
+}
+
+.key.ico svg {
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.key.ico:hover svg {
+  transform: scale(1.12);
+  color: var(--accent);
 }
 ```
 
@@ -99,7 +104,7 @@ The 3D model engine (`viewer3d.js`) and 2.5D relief rendering system utilize Web
 2. **Height-Map Relief Shader**:
    - Real-time normal computation from 8-bit stroke elevation channels.
    - Blinn-Phong specular glint highlights with ambient light attenuation.
-   - Oil paint dragging and bristle scrape dynamics.
+   - 12 distinct physical material models: Oil, Acrylic, Palette Knife, Porcelain Ceramic, Stone, Kinetic Metal, Foam, Modelling Clay, Liquid Chrome, Pewter, Terrazzo, Copper, Gold Leaf, Bronze, Glass/Crystal, and Vinyl Puffy.
 
 ---
 
@@ -111,6 +116,7 @@ The 3D model engine (`viewer3d.js`) and 2.5D relief rendering system utilize Web
 - Expandable bottom deck for audio timeline scrubbing, frequency bin visualization, and beat scoring.
 
 ### Mobile & Touch Screens (9:16 and 4:5)
-- Streamlined vertical command stack with priority gestures.
-- Adaptive canvas scaling to maintain 60 FPS under touch dragging.
-- Floating quick-action buttons for capture, look selection, and playback toggle.
+- Streamlined vertical command stack with tactile chip buttons (`.pchips button`) featuring smooth horizontal swipe scrolling.
+- Generous 40px+ touch targets on primary action buttons (`.pkey`, `.pgo`).
+- Haptic spring scaling (`transform: scale(0.975) translateY(1px)`) on active touches.
+- Viewport orientation adaptation: dual-column split in landscape mode and full-width stage in portrait mode.

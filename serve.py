@@ -50,17 +50,26 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         pass
 
 
-port = free_port()
-server = http.server.ThreadingHTTPServer(('127.0.0.1', port), Handler)
-url = f'http://localhost:{port}/'
-version = open('VERSION').read().strip() if os.path.exists('VERSION') else '5.0.0'
-print(f'\n[Code&Paint Studio v{version}] running at {url}')
-print('Keep this window open while using the studio. Press Ctrl+C to stop.\n', flush=True)
+def run_server(p=8765, open_browser=None):
+    if open_browser is None:
+        open_browser = not os.environ.get('CP_NO_BROWSER')
+    port = free_port(p)
+    server = http.server.ThreadingHTTPServer(('127.0.0.1', port), Handler)
+    url = f'http://localhost:{port}/'
+    version = open('VERSION').read().strip() if os.path.exists('VERSION') else '5.0.0'
+    print(f'\n[Code&Paint Studio v{version}] running at {url}')
+    print('Keep this window open while using the studio. Press Ctrl+C to stop.\n', flush=True)
 
-if not os.environ.get('CP_NO_BROWSER'):
-    threading.Timer(0.8, lambda: webbrowser.open(url)).start()
+    if open_browser:
+        threading.Timer(0.8, lambda: webbrowser.open(url)).start()
 
-try:
-    server.serve_forever()
-except KeyboardInterrupt:
-    pass
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        server.server_close()
+
+
+if __name__ == '__main__':
+    run_server()
